@@ -3,7 +3,7 @@ import { connection } from './connection'
 import { User } from './entities/User'
 import { Series } from './entities/Series'
 
-// Seed the database with sample data for users and series
+// Seed the database with sample data for users and series, checking for duplicates
 async function seedDatabase() {
   // Initialize the connection
   const conn = await connection
@@ -26,10 +26,13 @@ async function seedDatabase() {
     }
   ]
 
-  // Insert sample users
+  // Insert sample users if they don't already exist
   for (const userData of sampleUsers) {
-    const user = userRepository.create(userData)
-    await userRepository.save(user)
+    const existingUser = await userRepository.findOne({ where: { email: userData.email } })
+    if (!existingUser) {
+      const user = userRepository.create(userData)
+      await userRepository.save(user)
+    }
   }
 
   // Sample series data
@@ -48,14 +51,18 @@ async function seedDatabase() {
     }
   ]
 
-  // Insert sample series
+  // Insert sample series if they don't already exist
   for (const seriesData of sampleSeries) {
-    const series = seriesRepository.create(seriesData)
-    await seriesRepository.save(series)
+    const existingSeries = await seriesRepository.findOne({ where: { name: seriesData.name } })
+    if (!existingSeries) {
+      const series = seriesRepository.create(seriesData)
+      await seriesRepository.save(series)
+    }
   }
 
   console.log('Database seeded with sample data')
-  await conn.close()
+  // Optionally, you can close the connection if needed:
+  // await conn.close()
 }
 
 // Run the seed script

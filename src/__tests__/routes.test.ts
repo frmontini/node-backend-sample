@@ -1,4 +1,4 @@
-// src/__tests__/series.test.ts
+// src/__tests__/routes.test.ts
 import request from 'supertest'
 import express from 'express'
 import { routes } from '../routes'
@@ -19,8 +19,15 @@ beforeAll(async () => {
   app.use(express.json())
   app.use(routes)
 
-  // Seed a test user for authentication
+  // Get repositories for User and Series
   const userRepository = getRepository(User)
+  const seriesRepository = getRepository(Series)
+
+  // Clear previous data to avoid UNIQUE constraint errors
+  await userRepository.clear()
+  await seriesRepository.clear()
+
+  // Seed a test user for authentication
   const testUser = userRepository.create({
     name: 'Test User',
     email: 'test@example.com',
@@ -29,7 +36,6 @@ beforeAll(async () => {
   await userRepository.save(testUser)
 
   // Seed a sample series record
-  const seriesRepository = getRepository(Series)
   const sampleSeries = seriesRepository.create({
     name: 'Test Series',
     director: 'Test Director',
