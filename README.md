@@ -52,7 +52,7 @@ project-root
 1. **Clone the repository:**
 
 ```
-git clone https://github.com/yourusername/node-backend-sample.git  
+git clone https://github.com/frmontini/node-backend-sample.git  
 cd node-backend-sample
 ```
 
