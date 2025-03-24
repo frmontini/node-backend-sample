@@ -131,7 +131,7 @@ npm install --save-dev jest ts-jest supertest @types/jest @types/supertest
     ```json
     {
       "message": "Token is valid",
-      "payload": { "id": 1, ... }
+      "payload": { "id": 1, "iat": 1742819656, "exp": 1742823256 }
     }
     ```
 
