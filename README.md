@@ -24,6 +24,7 @@ This is a sample Node.js backend application built with TypeScript, Express, and
 
 ## Folder Structure
 
+```
 project-root  
 └── src  
     ├── __tests__  
@@ -37,6 +38,7 @@ project-root
     │   └── seed.ts  
     ├── routes.ts  
     └── index.ts  
+```
 
 - **src/index.ts:** Entry point of the application, sets up Express and loads routes.
 - **src/routes.ts:** Contains API endpoint definitions including authentication and protected routes.
@@ -49,23 +51,31 @@ project-root
 
 1. **Clone the repository:**
 
-   git clone https://github.com/yourusername/node-backend-sample.git  
-   cd node-backend-sample
+```
+git clone https://github.com/yourusername/node-backend-sample.git  
+cd node-backend-sample
+```
 
 2. **Install dependencies:**
 
-   npm install
+```
+npm install
+```
 
 3. **Install development dependencies for testing:**
 
-   npm install --save-dev jest ts-jest supertest @types/jest @types/supertest
+```
+npm install --save-dev jest ts-jest supertest @types/jest @types/supertest
+```
 
 ## Running the Application
 
 - **Development Mode:**  
   The application now automatically seeds the database and then starts the server when you run the start command. To start the application, run:
 
+  ```
   npm start
+  ```
 
 - The server will run on port 3000 by default, or the port defined in the PORT environment variable.
 
@@ -79,26 +89,32 @@ project-root
   Authenticates a user and returns a JWT token.
 
 - **Request Body:**
-
+  ```json
   {
     "email": "user@example.com",
     "password": "userpassword"
   }
+  ```
 
 - **Responses:**
   - **Success (200):**
-
+    ```json
     {
       "token": "your_jwt_token"
     }
+    ```
 
   - **Error (400):**
 
+    ```json
     { "message": "Email and password are required" }
+    ```
 
   - **Error (401):**
 
+    ```json
     { "message": "Invalid credentials" }
+    ```
 
 ### GET /profile
 
@@ -112,16 +128,22 @@ project-root
 - **Responses:**
   - **Success (200):**
 
+    ```json
     {
       "message": "Token is valid",
       "payload": { "id": 1, ... }
     }
+    ```
 
   - **Error (401):**
 
+    ```json
     { "message": "Authorization header missing" }  
-    or  
+    ```
+    or 
+    ```json 
     { "message": "Invalid token" }
+    ```
 
 ### GET /series
 
@@ -136,6 +158,7 @@ project-root
   - **Success (200):**  
     Returns an array of series objects.
 
+    ```json
     [
       {
         "id": 1,
@@ -152,12 +175,17 @@ project-root
         "shortDescription": "Noble families battle for control in a fantasy land"
       }
     ]
+    ```
 
   - **Error (401):**
 
+    ```json
     { "message": "Authorization header missing" }  
-    or  
+    ```
+    or 
+    ```json 
     { "message": "Invalid token" }
+    ```
 
 ## Testing
 
@@ -167,7 +195,9 @@ The application uses **Jest** and **supertest** for automated testing.
 
 2. **Run tests:**
 
-   npm test
+```
+npm test
+```
 
 - The test suite covers authentication (login) and access to protected endpoints such as /series.
 
